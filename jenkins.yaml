@@ -3,13 +3,14 @@ apiVersion: v1
 kind: ServiceAccount
 metadata:
   name: jenkins
-  namespace: default
+  namespace: fleetman
+
 ---
 kind: Role
 apiVersion: rbac.authorization.k8s.io/v1beta1
 metadata:
   name: jenkins
-  namespace: default
+  namespace: fleetman
 rules:
 - apiGroups: [""]
   resources: ["pods","services"]
@@ -35,7 +36,7 @@ apiVersion: rbac.authorization.k8s.io/v1beta1
 kind: RoleBinding
 metadata:
   name: jenkins
-  namespace: default
+  namespace: fleetman
 roleRef:
   apiGroup: rbac.authorization.k8s.io
   kind: Role
@@ -52,7 +53,7 @@ metadata:
   name: jenkins-crb
 subjects:
 - kind: ServiceAccount
-  namespace: default
+  namespace: fleetman
   name: jenkins
 roleRef:
   kind: ClusterRole
@@ -73,7 +74,7 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: jenkins
-  namespace: default
+  namespace: fleetman
 spec:
   selector:
     matchLabels:
@@ -116,7 +117,7 @@ apiVersion: v1
 kind: Service
 metadata:
   name: jenkins
-  namespace: default
+  namespace: fleetman
 spec:
   type: NodePort
   ports:
